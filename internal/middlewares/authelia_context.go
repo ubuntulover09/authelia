@@ -20,9 +20,10 @@ import (
 // NewRequestLogger create a new request logger for the given request.
 func NewRequestLogger(ctx *AutheliaCtx) *logrus.Entry {
 	return logrus.WithFields(logrus.Fields{
-		"method":    string(ctx.Method()),
-		"path":      string(ctx.Path()),
-		"remote_ip": ctx.RemoteIP().String(),
+		"method":          string(ctx.Method()),
+		"path":            string(ctx.Path()),
+		"remote_ip":       ctx.RemoteIP().String(),
+		"x-forwarded-for": string(ctx.Request.Header.Peek("X-Forwarded-For")),
 	})
 }
 
